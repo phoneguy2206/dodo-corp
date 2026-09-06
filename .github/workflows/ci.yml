@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  structure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify repository structure
+        shell: bash
+        run: |
+          test -f README.md
+          test -f src/.gitkeep
+          test -f tests/.gitkeep
+          test -f docs/.gitkeep
+          test -f scripts/.gitkeep
+          echo "Repository structure is valid."
