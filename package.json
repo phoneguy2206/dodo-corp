@@ -1,0 +1,31 @@
+{
+  "name": "sonaris",
+  "version": "0.1.0",
+  "description": "Lecteur musical local Sonaris, sans compte ni publicité.",
+  "main": "main.js",
+  "author": "Sonaris",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "check": "node --check main.js && node --check preload.js && node --check renderer/app.js && node --check scripts/normalize-artifact.js",
+    "package:win": "electron-builder --win zip --publish never",
+    "package:mac": "electron-builder --mac zip --publish never",
+    "package:linux": "electron-builder --linux zip --publish never"
+  },
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.sonaris.player",
+    "productName": "Sonaris",
+    "artifactName": "Sonaris-${version}-${os}.${ext}",
+    "asar": true,
+    "files": ["main.js", "preload.js", "renderer/**/*", "package.json"],
+    "directories": { "output": "dist" },
+    "mac": { "category": "public.app-category.music", "target": ["zip"] },
+    "win": { "target": ["zip"] },
+    "linux": { "target": ["zip"], "category": "AudioVideo;Audio" }
+  }
+}
