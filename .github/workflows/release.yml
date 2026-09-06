@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Tag existant à publier, par exemple v0.1.0'
+        description: 'Version de validation, par exemple v0.1.0-rc.1'
         required: true
         type: string
 
@@ -60,16 +60,15 @@ jobs:
       SONARIS_VERSION: ${{ needs.metadata.outputs.version }}
       SONARIS_PLATFORM: ${{ matrix.platform }}
     steps:
-      - name: Checkout tagged source
+      - name: Checkout source
         uses: actions/checkout@v4
         with:
-          ref: ${{ needs.metadata.outputs.tag }}
+          ref: ${{ github.event_name == 'push' && github.ref || github.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
 
       - name: Install dependencies
         run: npm install --no-audit --no-fund
@@ -108,6 +107,7 @@ jobs:
 
   publish:
     name: Publish GitHub Release
+    if: github.event_name == 'push'
     needs: [metadata, build]
     runs-on: ubuntu-latest
     steps:
