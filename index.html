@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Dodo Corp imagine des expériences numériques simples, utiles et durables.">
+  <link rel="canonical" href="https://phoneguy2206.github.io/dodo-corp/">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="theme-color" content="#5b4bdb">
+  <meta name="author" content="Dodo Corp">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Dodo Corp">
+  <meta property="og:title" content="Dodo Corp — Des idées qui prennent leur envol">
+  <meta property="og:description" content="Dodo Corp imagine des expériences numériques simples, utiles et durables.">
+  <meta property="og:url" content="https://phoneguy2206.github.io/dodo-corp/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Dodo Corp — Des idées qui prennent leur envol">
+  <meta name="twitter:description" content="Dodo Corp imagine des expériences numériques simples, utiles et durables.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Dodo Corp",
+    "url": "https://phoneguy2206.github.io/dodo-corp/",
+    "description": "Dodo Corp imagine des expériences numériques simples, utiles et durables."
+  }
+  </script>
+  <title>Dodo Corp — Des idées qui prennent leur envol</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #5f6b7a;
+      --paper: #f7f9fc;
+      --card: rgba(255, 255, 255, .84);
+      --line: #e5eaf2;
+      --brand: #5b4bdb;
+      --brand-dark: #4032ad;
+      --accent: #f6b73c;
+      --shadow: 0 24px 70px rgba(29, 38, 68, .12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 22px 0;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.03em; }
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      color: #fff;
+      background: var(--brand);
+      border-radius: 13px 13px 13px 4px;
+      box-shadow: 0 10px 24px rgba(91, 75, 219, .28);
+    }
+    .nav-links { display: flex; align-items: center; gap: 25px; color: var(--muted); font-size: .95rem; }
+    .nav-links a:hover { color: var(--brand); }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-weight: 750;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: #fff; background: var(--brand); box-shadow: 0 14px 30px rgba(91, 75, 219, .24); }
+    .button-primary:hover { background: var(--brand-dark); }
+    .button-quiet { color: var(--ink); border-color: var(--line); background: rgba(255,255,255,.66); }
+    .hero { position: relative; overflow: hidden; padding: 84px 0 100px; }
+    .hero::before, .hero::after { position: absolute; z-index: -1; width: 260px; height: 260px; border-radius: 50%; content: ""; filter: blur(4px); opacity: .55; }
+    .hero::before { top: 40px; right: -100px; background: #ddd9ff; }
+    .hero::after { bottom: -150px; left: -100px; background: #ffe7ae; }
+    .hero-grid { display: grid; grid-template-columns: 1.08fr .92fr; align-items: center; gap: 70px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--brand); font-size: .82rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+    .eyebrow::before { width: 28px; height: 3px; border-radius: 99px; background: var(--accent); content: ""; }
+    h1 { max-width: 680px; margin: 18px 0 20px; font-size: clamp(3rem, 7vw, 5.8rem); line-height: .98; letter-spacing: -.075em; }
+    .hero-copy { max-width: 570px; color: var(--muted); font-size: 1.16rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
+    .visual { position: relative; min-height: 410px; }
+    .orb { position: absolute; inset: 30px 10px 20px 30px; overflow: hidden; border: 1px solid rgba(255,255,255,.7); border-radius: 38% 62% 52% 48% / 48% 38% 62% 52%; background: linear-gradient(135deg, #7668ee, #b9b2ff 48%, #ffe1a3); box-shadow: var(--shadow); transform: rotate(-7deg); }
+    .orb::before { position: absolute; width: 220px; height: 220px; top: -40px; right: -25px; border-radius: 50%; background: rgba(255,255,255,.31); content: ""; }
+    .orb::after { position: absolute; width: 180px; height: 180px; bottom: -50px; left: -35px; border-radius: 50%; background: rgba(91,75,219,.32); content: ""; }
+    .orbit-card { position: absolute; right: 0; bottom: 34px; z-index: 1; max-width: 250px; padding: 20px; border: 1px solid rgba(255,255,255,.9); border-radius: 20px; background: rgba(255,255,255,.78); box-shadow: 0 20px 55px rgba(55, 48, 129, .2); backdrop-filter: blur(14px); }
+    .orbit-card strong { display: block; margin-bottom: 4px; font-size: 1.25rem; }
+    .orbit-card span { color: var(--muted); font-size: .9rem; }
+    .section { padding: 92px 0; }
+    .section-muted { background: #fff; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 30px; }
+    h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: -.055em; line-height: 1.05; }
+    .section-heading p { max-width: 420px; margin: 0; color: var(--muted); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card { padding: 26px; border: 1px solid var(--line); border-radius: 24px; background: var(--card); box-shadow: 0 12px 35px rgba(29,38,68,.05); }
+    .card-icon { display: grid; width: 46px; height: 46px; place-items: center; margin-bottom: 22px; color: var(--brand); background: #eeecff; border-radius: 14px; font-size: 1.3rem; }
+    h3 { margin: 0 0 9px; font-size: 1.2rem; }
+    .card p { margin: 0; color: var(--muted); }
+    .banner { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 30px; padding: 42px; color: #fff; border-radius: 30px; background: var(--ink); box-shadow: var(--shadow); }
+    .banner h2 { max-width: 620px; }
+    .banner p { max-width: 590px; margin: 12px 0 0; color: #cbd2e2; }
+    footer { padding: 30px 0 42px; color: var(--muted); font-size: .9rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; padding-top: 24px; border-top: 1px solid var(--line); }
+    @media (max-width: 800px) {
+      .nav-links { display: none; }
+      .hero { padding-top: 52px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 35px; }
+      .visual { min-height: 320px; }
+      .cards { grid-template-columns: 1fr; }
+      .section-heading, .banner { grid-template-columns: 1fr; display: grid; }
+      .banner { padding: 30px; }
+    }
+    @media (max-width: 500px) {
+      .shell { width: min(100% - 28px, 1120px); }
+      h1 { font-size: 3.2rem; }
+      .orb { inset: 20px 0 12px 10px; }
+      .footer-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell">
+    <nav class="nav" aria-label="Navigation principale">
+      <a class="brand" href="#top" aria-label="Dodo Corp, accueil"><span class="brand-mark" aria-hidden="true">d</span><span>Dodo Corp</span></a>
+      <div class="nav-links"><a href="#vision">Notre vision</a><a href="#services">Nos savoir-faire</a><a class="button button-quiet" href="#contact">Parlons-nous</a></div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <span class="eyebrow">Studio numérique indépendant</span>
+          <h1>Des idées qui prennent leur envol.</h1>
+          <p class="hero-copy">Dodo Corp transforme les bonnes intuitions en expériences numériques claires, utiles et mémorables. Nous concevons avec curiosité, exigence et une vraie attention aux détails.</p>
+          <div class="actions"><a class="button button-primary" href="#services">Découvrir notre approche <span aria-hidden="true">→</span></a><a class="button button-quiet" href="#vision">En savoir plus</a></div>
+        </div>
+        <div class="visual" aria-label="Illustration abstraite représentant une idée en mouvement" role="img"><div class="orb"></div><div class="orbit-card"><strong>Simple. Singulier. Solide.</strong><span>Une direction claire pour chaque projet.</span></div></div>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="vision">
+      <div class="shell section-heading"><div><span class="eyebrow">Notre vision</span><h2>Le numérique peut être plus humain.</h2></div><p>Nous croyons aux produits qui respectent le temps, l’attention et l’intelligence des personnes qui les utilisent.</p></div>
+      <div class="shell cards" id="services">
+        <article class="card"><div class="card-icon" aria-hidden="true">✦</div><h3>Clarifier</h3><p>Nous transformons un besoin complexe en une expérience lisible, avec des choix assumés et une direction simple.</p></article>
+        <article class="card"><div class="card-icon" aria-hidden="true">◌</div><h3>Construire</h3><p>Nous donnons vie aux idées avec des interfaces rapides, accessibles et pensées pour durer dans le temps.</p></article>
+        <article class="card"><div class="card-icon" aria-hidden="true">↗</div><h3>Faire grandir</h3><p>Nous livrons une base solide, documentée et prête à évoluer avec les usages et les ambitions du projet.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="contact"><div class="shell banner"><div><h2>Une idée à faire décoller ?</h2><p>Racontez-nous ce que vous préparez. Les meilleurs projets commencent souvent par une conversation simple.</p></div><a class="button button-primary" href="mailto:bonjour@dodo-corp.example">Nous contacter <span aria-hidden="true">→</span></a></div></section>
+  </main>
+
+  <footer><div class="shell footer-inner"><span>© 2026 Dodo Corp</span><span>Conçu avec soin, quelque part entre une idée et la prochaine.</span></div></footer>
+</body>
+</html>
