@@ -1,0 +1,141 @@
+name: Release Sonaris
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag existant à publier, par exemple v0.1.0'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  metadata:
+    name: Validate release tag
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.release.outputs.tag }}
+      version: ${{ steps.release.outputs.version }}
+    steps:
+      - name: Resolve and validate tag
+        id: release
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+        run: |
+          set -euo pipefail
+          if [[ ! "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
+            echo "Invalid release tag: $RELEASE_TAG"
+            echo "Expected vMAJOR.MINOR.PATCH, optionally followed by a pre-release suffix."
+            exit 1
+          fi
+          echo "tag=$RELEASE_TAG" >> "$GITHUB_OUTPUT"
+          echo "version=${RELEASE_TAG#v}" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Build ${{ matrix.platform }}
+    needs: metadata
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: windows
+            runner: windows-latest
+          - platform: macos
+            runner: macos-latest
+          - platform: linux
+            runner: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
+    env:
+      SONARIS_TAG: ${{ needs.metadata.outputs.tag }}
+      SONARIS_VERSION: ${{ needs.metadata.outputs.version }}
+      SONARIS_PLATFORM: ${{ matrix.platform }}
+    steps:
+      - name: Checkout tagged source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.metadata.outputs.tag }}
+
+      - name: Run Windows build script
+        if: matrix.platform == 'windows'
+        shell: pwsh
+        run: |
+          $script = 'scripts/build-windows.ps1'
+          if (!(Test-Path $script)) {
+            throw "Missing $script. Add the Sonaris Windows build before publishing a release."
+          }
+          & $script -Version $env:SONARIS_VERSION
+
+      - name: Run Unix build script
+        if: matrix.platform != 'windows'
+        shell: bash
+        run: |
+          set -euo pipefail
+          script="scripts/build-${SONARIS_PLATFORM}.sh"
+          if [[ ! -x "$script" ]]; then
+            echo "Missing or non-executable $script. Add the Sonaris ${SONARIS_PLATFORM} build before publishing a release."
+            exit 1
+          fi
+          SONARIS_VERSION="$SONARIS_VERSION" SONARIS_TAG="$SONARIS_TAG" "$script" "$SONARIS_VERSION"
+
+      - name: Verify release archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive="dist/Sonaris-${SONARIS_VERSION}-${SONARIS_PLATFORM}.zip"
+          if [[ ! -s "$archive" ]]; then
+            echo "Expected non-empty archive not found: $archive"
+            echo "Each platform build must create this exact file in dist/."
+            exit 1
+          fi
+          echo "Verified $archive"
+
+      - name: Upload platform artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sonaris-${{ matrix.platform }}-${{ needs.metadata.outputs.version }}
+          path: dist/Sonaris-${{ needs.metadata.outputs.version }}-${{ matrix.platform }}.zip
+          if-no-files-found: error
+
+  publish:
+    name: Publish GitHub Release
+    needs: [metadata, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download platform artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: Sonaris-*-${{ needs.metadata.outputs.version }}
+          path: dist
+          merge-multiple: true
+
+      - name: Verify release files
+        shell: bash
+        run: |
+          set -euo pipefail
+          for platform in windows macos linux; do
+            test -s "dist/Sonaris-${{ needs.metadata.outputs.version }}-${platform}.zip"
+          done
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.metadata.outputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release create "$RELEASE_TAG" \
+            dist/Sonaris-${{ needs.metadata.outputs.version }}-windows.zip \
+            dist/Sonaris-${{ needs.metadata.outputs.version }}-macos.zip \
+            dist/Sonaris-${{ needs.metadata.outputs.version }}-linux.zip \
+            --title "Sonaris $RELEASE_TAG" \
+            --generate-notes
