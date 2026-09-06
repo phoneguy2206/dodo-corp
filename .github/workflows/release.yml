@@ -126,16 +126,23 @@ jobs:
             test -s "dist/Sonaris-${{ needs.metadata.outputs.version }}-${platform}.zip"
           done
 
-      - name: Create GitHub Release
+      - name: Create or update GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ needs.metadata.outputs.tag }}
+          RELEASE_VERSION: ${{ needs.metadata.outputs.version }}
         shell: bash
         run: |
           set -euo pipefail
-          gh release create "$RELEASE_TAG" \
-            dist/Sonaris-${{ needs.metadata.outputs.version }}-windows.zip \
-            dist/Sonaris-${{ needs.metadata.outputs.version }}-macos.zip \
-            dist/Sonaris-${{ needs.metadata.outputs.version }}-linux.zip \
-            --title "Sonaris $RELEASE_TAG" \
-            --generate-notes
+          assets=(
+            "dist/Sonaris-${RELEASE_VERSION}-windows.zip"
+            "dist/Sonaris-${RELEASE_VERSION}-macos.zip"
+            "dist/Sonaris-${RELEASE_VERSION}-linux.zip"
+          )
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "${assets[@]}" --clobber
+          else
+            gh release create "$RELEASE_TAG" "${assets[@]}" \
+              --title "Sonaris $RELEASE_TAG" \
+              --generate-notes
+          fi
