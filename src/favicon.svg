@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Dodo Corp</title>
+  <desc id="desc">Icône violette en forme de d</desc>
+  <rect width="64" height="64" rx="18" fill="#5b4bdb"/>
+  <path d="M21 17v18.5A12.5 12.5 0 1 0 33.5 23H28v-6h5.5C44.27 17 53 25.73 53 36.5S44.27 56 33.5 56 14 47.27 14 36.5V17h7Z" fill="#fff"/>
+  <circle cx="43" cy="21" r="5" fill="#f6b73c"/>
+</svg>
