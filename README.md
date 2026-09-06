@@ -10,3 +10,7 @@ Point de depart du projet dodo-corp.
 - `scripts/` : scripts utilitaires
 
 Cette structure est volontairement minimale et pourra evoluer avec les besoins du projet.
+
+## Site
+
+Le site est disponible sur [GitHub Pages](https://phoneguy2206.github.io/dodo-corp/).
