@@ -65,27 +65,27 @@ jobs:
         with:
           ref: ${{ needs.metadata.outputs.tag }}
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Check application syntax
+        run: npm run check
+
       - name: Run Windows build script
         if: matrix.platform == 'windows'
         shell: pwsh
-        run: |
-          $script = 'scripts/build-windows.ps1'
-          if (!(Test-Path $script)) {
-            throw "Missing $script. Add the Sonaris Windows build before publishing a release."
-          }
-          & $script -Version $env:SONARIS_VERSION
+        run: ./scripts/build-windows.ps1 -Version $env:SONARIS_VERSION
 
       - name: Run Unix build script
         if: matrix.platform != 'windows'
         shell: bash
-        run: |
-          set -euo pipefail
-          script="scripts/build-${SONARIS_PLATFORM}.sh"
-          if [[ ! -x "$script" ]]; then
-            echo "Missing or non-executable $script. Add the Sonaris ${SONARIS_PLATFORM} build before publishing a release."
-            exit 1
-          fi
-          SONARIS_VERSION="$SONARIS_VERSION" SONARIS_TAG="$SONARIS_TAG" "$script" "$SONARIS_VERSION"
+        run: bash "scripts/build-${SONARIS_PLATFORM}.sh" "$SONARIS_VERSION"
 
       - name: Verify release archive
         shell: bash
