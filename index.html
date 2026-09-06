@@ -94,6 +94,13 @@
     .step { position: relative; padding-top: 52px; }
     .step::before { position: absolute; top: 0; left: 0; color: var(--brand); content: "0" counter(step); counter-increment: step; font-size: 1.4rem; font-weight: 800; }
     .step p { margin: 0; color: var(--muted); }
+    .downloads { background: #1b1824; }
+    .download-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; }
+    .download-card { display: flex; min-height: 210px; flex-direction: column; padding: 25px; border: 1px solid var(--line); border-radius: 22px; background: var(--panel); }
+    .download-card h3 { margin: 0; font-size: 1.25rem; }
+    .download-card p { margin: 8px 0 22px; color: var(--muted); }
+    .download-status { display: inline-flex; width: fit-content; align-items: center; gap: 8px; margin-top: auto; padding: 7px 11px; color: var(--accent); border: 1px solid rgba(244,201,107,.3); border-radius: 999px; font-size: .8rem; font-weight: 750; }
+    .download-status::before { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); content: ""; }
     .promise { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 30px; padding: 40px; border: 1px solid var(--line); border-radius: 26px; background: linear-gradient(120deg, #262133, #1c1925); }
     .promise h2 { max-width: 620px; margin-top: 0; }
     .promise p { max-width: 620px; margin: 12px 0 0; color: var(--muted); }
@@ -104,7 +111,7 @@
       .hero { padding-top: 48px; }
       .hero-grid { grid-template-columns: 1fr; gap: 45px; }
       .player-wrap { max-width: 470px; }
-      .cards, .steps { grid-template-columns: 1fr; }
+      .cards, .steps, .download-grid { grid-template-columns: 1fr; }
       .promise { grid-template-columns: 1fr; padding: 30px; }
     }
     @media (max-width: 500px) {
@@ -119,7 +126,7 @@
   <header class="shell">
     <nav class="nav" aria-label="Navigation principale">
       <a class="brand" href="#top" aria-label="Sonaris, accueil"><span class="brand-mark" aria-hidden="true">s</span><span>Sonaris</span></a>
-      <div class="nav-links"><a href="#pourquoi">Pourquoi Sonaris</a><a href="#fonctionnement">Comment ça marche</a><a class="button button-quiet" href="#promesse">Notre promesse</a></div>
+      <div class="nav-links"><a href="#pourquoi">Pourquoi Sonaris</a><a href="#fonctionnement">Comment ça marche</a><a href="#telechargement">Télécharger</a><a class="button button-quiet" href="#promesse">Notre promesse</a></div>
     </nav>
   </header>
 
@@ -156,6 +163,15 @@
     <section class="section" id="fonctionnement">
       <div class="shell section-heading"><span class="eyebrow">En trois étapes</span><h2>De tes fichiers à ta musique.</h2></div>
       <div class="shell steps"><article class="step"><h3>Choisis un dossier</h3><p>Indique où se trouve ta bibliothèque audio sur ton appareil.</p></article><article class="step"><h3>Retrouve tes albums</h3><p>Sonaris organise ce qui est déjà à toi, sans créer de compte en ligne.</p></article><article class="step"><h3>Écoute à ton rythme</h3><p>Lance un titre, reprends une playlist et garde le contrôle de ton écoute.</p></article></div>
+    </section>
+
+    <section class="section downloads" id="telechargement">
+      <div class="shell section-heading"><span class="eyebrow">Bientôt sur ton appareil</span><h2>Télécharger Sonaris.</h2><p class="section-intro">Les premières versions arrivent bientôt. La section est prête : les liens officiels seront ajoutés dès que les applications seront publiées.</p></div>
+      <div class="shell download-grid">
+        <article class="download-card"><div class="card-icon" aria-hidden="true">▣</div><h3>Windows</h3><p>Une version de bureau pour retrouver ta bibliothèque locale.</p><span class="download-status">Bientôt disponible</span></article>
+        <article class="download-card"><div class="card-icon" aria-hidden="true">◒</div><h3>macOS</h3><p>Une expérience Sonaris pensée pour ton Mac et tes fichiers audio.</p><span class="download-status">Bientôt disponible</span></article>
+        <article class="download-card"><div class="card-icon" aria-hidden="true">◈</div><h3>Linux</h3><p>Une version pour écouter ta musique sur ton environnement Linux.</p><span class="download-status">Bientôt disponible</span></article>
+      </div>
     </section>
 
     <section class="section" id="promesse"><div class="shell promise"><div><h2>Ta bibliothèque reste chez toi.</h2><p>Sonaris est pensé pour celles et ceux qui veulent écouter leur propre musique dans un outil clair, local et sans distraction.</p></div><a class="button button-primary" href="#top">Revenir en haut <span aria-hidden="true">↑</span></a></div></section>
